@@ -7,10 +7,10 @@
       "headings": {
         "about-us": "About Us",
         "project-team": "Project team",
-        "john-doe": "John Doe",
-        "jane-doe": "Jane Doe",
+        "clement-sim": "Clement Sim",
+        "ang-tze-haw-bryan": "Ang Tze Haw Bryan",
         "nathan": "Nathan",
-        "jean-doe": "Jean Doe",
+        "benjamin-seah": "Benjamin Seah",
         "james-doe": "James Doe"
       },
       "headingKeywords": {}
@@ -132,6 +132,14 @@
       "title": "",
       "headings": {
         "addressbook-level-3": "AddressBook Level-3"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "team/brainybryan69.md",
+      "title": "Ang Tze Haw Bryan's Project Portfolio Page",
+      "headings": {
+        "project-atlas": "Project: Atlas"
       },
       "headingKeywords": {}
     },
