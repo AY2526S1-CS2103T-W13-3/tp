@@ -1,0 +1,58 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AddTransactionCommandParser" as AddTransactionCommandParser LOGIC_COLOR
+participant "c:AddTransactionCommand" as AddTransactionCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("addtxn i/1 n/Coffee a/-50")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("addtxn i/1 n/Coffee a/-50")
+activate AddressBookParser
+
+AddressBookParser -> AddTransactionCommandParser : parse("i/1 n/Coffee a/-50")
+activate AddTransactionCommandParser
+
+create AddTransactionCommand
+AddTransactionCommandParser -> AddTransactionCommand
+activate AddTransactionCommand
+
+AddTransactionCommand --> AddTransactionCommandParser
+deactivate AddTransactionCommand
+
+AddTransactionCommandParser --> AddressBookParser : c
+deactivate AddTransactionCommandParser
+
+AddressBookParser --> LogicManager : c
+deactivate AddressBookParser
+
+LogicManager -> AddTransactionCommand : execute(model)
+activate AddTransactionCommand
+
+AddTransactionCommand -> Model : setPerson(personToEdit, editedPerson)
+activate Model
+
+Model --> AddTransactionCommand
+deactivate Model
+
+create CommandResult
+AddTransactionCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddTransactionCommand
+deactivate CommandResult
+
+AddTransactionCommand --> LogicManager : result
+deactivate AddTransactionCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
