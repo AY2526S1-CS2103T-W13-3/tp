@@ -18,10 +18,4 @@ Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
-
-NameContainsKeywordsPredicate .down.> Person : <<filters>>
-TagContainsKeywordsPredicate .down.> Person : <<filters>>
-PersonMatchesPredicates .down.> Person : <<filters>>
-PersonMatchesPredicates --> NameContainsKeywordsPredicate : uses
-PersonMatchesPredicates --> TagContainsKeywordsPredicate : uses
 @enduml
