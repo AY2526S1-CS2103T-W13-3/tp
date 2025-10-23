@@ -95,6 +95,27 @@ public class AddFollowUpCommandTest {
     }
 
     @Test
+    public void execute_mediumUrgencyFollowUp_success() {
+        Person personToModify = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        FollowUp followUp = new FollowUp("Schedule monthly check-in",
+                "MEDIUM");
+        AddFollowUpCommand addFollowUpCommand = new AddFollowUpCommand(INDEX_FIRST_PERSON, followUp);
+
+
+        List<FollowUp> updatedFollowUps= new ArrayList<>(personToModify.getFollowUps());
+        updatedFollowUps.add(followUp);
+        Person modifiedPerson = new Person(personToModify.getName(), personToModify.getPhone(), personToModify.getEmail(), personToModify.getAddress(), personToModify.getTags(), personToModify.getTransactions(), updatedFollowUps);
+
+        String expectedMessage = String.format(AddFollowUpCommand.MESSAGE_SUCCESS,
+                Messages.format(modifiedPerson), followUp);
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.setPerson(personToModify, modifiedPerson);
+
+        assertCommandSuccess(addFollowUpCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void execute_multipleFollowUps_success() {
         // First add a follow-up
         Person personToModify = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
