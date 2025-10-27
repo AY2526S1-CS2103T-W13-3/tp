@@ -1,0 +1,56 @@
+@startuml
+' Sequence diagram for FollowUpCommand
+
+actor User
+participant "CommandBox / GUI" as CommandBox
+participant "LogicManager" as LogicManager
+participant "Parser" as Parser
+participant "FollowUpCommand" as FollowUpCommand
+participant "Model" as Model
+participant "Patient / Person" as Patient
+participant "Storage" as Storage
+participant "UI (Result Display)" as Ui
+
+== User issues follow-up command ==
+User -> CommandBox : type "followup 1 /by 2025-10-30 <notes>"
+CommandBox -> LogicManager : execute(commandText)
+
+== Parsing ==
+LogicManager -> Parser : parse(commandText)
+Parser -> FollowUpCommand : new(commandArguments)
+Parser --> LogicManager : Command object
+
+== Command execution ==
+LogicManager -> FollowUpCommand : execute(model)
+
+alt Patient index valid
+    FollowUpCommand -> Model : getFilteredPatientList()
+    Model --> FollowUpCommand : filteredList
+
+    FollowUpCommand -> Model : getPatient(index)
+    Model --> Patient : return patient
+
+    FollowUpCommand -> Patient : addFollowUp(followUp)
+    activate Patient
+    Patient --> FollowUpCommand : followUpAdded
+    deactivate Patient
+
+    FollowUpCommand -> Model : updatePatient(patient)
+    activate Model
+    Model -> Storage : saveAll(addressBook / data)
+    activate Storage
+    Storage --> Model : saveSuccess
+    deactivate Storage
+    Model --> FollowUpCommand : updateSuccess
+    deactivate Model
+
+    FollowUpCommand -> LogicManager : CommandResult("Follow-up added: <summary>")
+    LogicManager -> Ui : showToUser(result)
+    Ui -> User : display "Follow-up added successfully"
+else Invalid index / not found
+    FollowUpCommand -> LogicManager : throw CommandException("Invalid patient index")
+    LogicManager -> Ui : showToUser(error)
+    Ui -> User : display "Error: Invalid patient index"
+end
+
+@enduml
