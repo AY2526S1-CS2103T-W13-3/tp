@@ -108,6 +108,7 @@
       "src": "UserGuide.md",
       "headings": {
         "atlas-user-guide": "Atlas User Guide",
+        "table-of-contents": "Table of contents",
         "quick-start": "Quick start",
         "features": "Features",
         "general-commands": "General Commands",
@@ -120,7 +121,9 @@
         "command-summary": "Command summary",
         "general-commands-2": "General Commands",
         "person-management-commands-2": "Person Management Commands",
-        "transaction-management-commands-2": "Transaction Management Commands"
+        "transaction-management-commands-2": "Transaction Management Commands",
+        "follow-up-management-commands-2": "Follow-up Management Commands",
+        "data-management-commands": "Data Management Commands"
       },
       "headingKeywords": {}
     },
