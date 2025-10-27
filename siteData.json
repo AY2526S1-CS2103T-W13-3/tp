@@ -113,6 +113,7 @@
         "general-commands": "General Commands",
         "person-management-commands": "Person Management Commands",
         "transaction-management-commands": "Transaction Management Commands",
+        "follow-up-management-commands": "Follow-up Management Commands",
         "data-management": "Data Management",
         "faq": "FAQ",
         "known-issues": "Known issues",
