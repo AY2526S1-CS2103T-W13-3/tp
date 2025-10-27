@@ -51,6 +51,5 @@ else Invalid index / not found
     FollowUpCommand -> LogicManager : throw CommandException("Invalid patient index")
     LogicManager -> Ui : showToUser(error)
     Ui -> User : display "Error: Invalid patient index"
-end
 
 @enduml
