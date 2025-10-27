@@ -1,0 +1,58 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":DeleteFollowUpCommandParser" as DeleteFollowUpCommandParser LOGIC_COLOR
+participant "c:DeleteFollowUpCommand" as DeleteFollowUpCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("deletefu i/1 t/1")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("deletefu i/1 t/1")
+activate AddressBookParser
+
+AddressBookParser -> DeleteFollowUpCommandParser : parse("i/1 t/1")
+activate DeleteFollowUpCommandParser
+
+create DeleteFollowUpCommand
+DeleteFollowUpCommandParser -> DeleteFollowUpCommand
+activate DeleteFollowUpCommand
+
+DeleteFollowUpCommand --> DeleteFollowUpCommandParser
+deactivate DeleteFollowUpCommand
+
+DeleteFollowUpCommandParser --> AddressBookParser : c
+deactivate DeleteFollowUpCommandParser
+
+AddressBookParser --> LogicManager : c
+deactivate AddressBookParser
+
+LogicManager -> DeleteFollowUpCommand : execute(model)
+activate DeleteFollowUpCommand
+
+DeleteFollowUpCommand -> Model : setPerson(personToEdit, editedPerson)
+activate Model
+
+Model --> DeleteFollowUpCommand
+deactivate Model
+
+create CommandResult
+DeleteFollowUpCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteFollowUpCommand
+deactivate CommandResult
+
+DeleteFollowUpCommand --> LogicManager : result
+deactivate DeleteFollowUpCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
