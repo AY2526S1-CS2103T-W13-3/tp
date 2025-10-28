@@ -1,0 +1,59 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant "a:Unarchivecommand" as UnarchiveCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("unarchive")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("unarchive")
+activate AddressBookParser
+
+create UnarchiveCommand
+AddressBookParser -> UnarchiveCommand
+activate UnarchiveCommand
+
+UnarchiveCommand --> AddressBookParser : a
+deactivate UnarchiveCommand
+
+AddressBookParser --> LogicManager : a
+deactivate AddressBookParser
+
+LogicManager -> UnarchiveCommand : execute(m)
+activate UnarchiveCommand
+
+UnarchiveCommand -> Model : getArchive()
+activate Model
+
+Model --> UnarchiveCommand : p
+deactivate Model
+
+UnarchiveCommand -> Model : addPersons(p)
+activate Model
+
+Model --> UnarchiveCommand
+deactivate Model
+
+create CommandResult
+UnarchiveCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> UnarchiveCommand
+deactivate CommandResult
+
+UnarchiveCommand --> LogicManager : r
+deactivate UnarchiveCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

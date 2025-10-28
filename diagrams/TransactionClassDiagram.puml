@@ -1,0 +1,36 @@
+@startuml Transaction
+
+class Transaction {
+  - transactionName: String {final}
+  - transactionAmount: double {final}
+  - type: Type {final}
+
+  + Transaction(transactionName: String, transactionAmount: double)
+  + Transaction(transactionName: String, transactionAmount: double, type: Type)
+  + getTransactionName(): String
+  + getTransactionAmount(): double
+  + getType(): Type
+  + equals(other: Object): boolean
+  + hashCode(): int
+  + toString(): String
+}
+
+enum Type {
+  INCOME
+  EXPENSE
+}
+
+Transaction +-- Type
+
+note right of Transaction::Transaction
+  Primary constructor: Type is automatically
+  determined based on amount sign.
+  Positive = INCOME, Negative = EXPENSE
+end note
+
+note right of Transaction::Transaction
+  Constructor with explicit type
+  (backward compatibility)
+end note
+
+@enduml
