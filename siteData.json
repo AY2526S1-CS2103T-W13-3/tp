@@ -122,14 +122,15 @@
       "src": "UserGuide.md",
       "headings": {
         "atlas-user-guide": "Atlas User Guide",
+        "what-is-atlas": "What is Atlas?",
         "table-of-contents": "Table of contents",
-        "quick-start": "Quick start",
+        "quick-start": "Quick Start",
         "features": "Features",
         "general-commands": "General Commands",
-        "viewing-help-help": "Viewing help : help",
-        "clearing-all-entries-clear": "Clearing all entries : clear",
-        "exiting-the-program-exit": "Exiting the program : exit",
-        "checking-net-cashflow-summary": "Checking net cashflow: summary",
+        "viewing-help-help": "Viewing help: help",
+        "clearing-all-entries-clear": "Clearing all entries: clear",
+        "exiting-the-program-exit": "Exiting the program: exit",
+        "checking-net-cashflow-summary": "Checking Net Cashflow: summary",
         "contact-management-commands": "Contact Management Commands",
         "adding-a-person-add": "Adding a person: add",
         "listing-all-persons-list": "Listing all persons : list",
@@ -144,10 +145,12 @@
         "editing-a-transaction-edittxn": "Editing a transaction : editTxn",
         "follow-up-management-commands": "Follow-up Management Commands",
         "adding-a-follow-up-addfu": "Adding a follow-up : addfu",
-        "deleting-a-follow-up-deletefu": "deleting a follow-up : deletefu",
+        "deleting-a-follow-up-deletefu": "Deleting a follow-up : deletefu",
         "data-management": "Data Management",
         "archiving-data-files-archive": "Archiving data files : archive",
         "unarchive-data-files-unarchive": "Unarchive data files : unarchive",
+        "saving-the-data": "Saving the data",
+        "editing-the-data-file": "Editing the data file",
         "faq": "FAQ",
         "known-issues": "Known issues",
         "command-summary": "Command summary",
@@ -163,7 +166,7 @@
       "src": "index.md",
       "title": "",
       "headings": {
-        "addressbook-level-3": "AddressBook Level-3"
+        "atlas-your-recipe-for-faster-smarter-f-and-amp-b-management": "Atlas - Your Recipe for Faster, Smarter F&amp;B Management"
       },
       "headingKeywords": {}
     },
