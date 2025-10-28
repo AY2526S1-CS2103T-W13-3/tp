@@ -1,0 +1,77 @@
+@startuml
+!include style.puml
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":EditTransactionCommandParser" as EditTransactionCommandParser LOGIC_COLOR
+participant "d:EditTransactionCommand" as EditTransactionCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("editTxn i/1 tn/1 n/Lunch")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("editTxn i/1 tn/1 n/Lunch")
+activate AddressBookParser
+
+create EditTransactionCommandParser
+AddressBookParser -> EditTransactionCommandParser : new()
+activate EditTransactionCommandParser
+
+EditTransactionCommandParser --> AddressBookParser
+deactivate EditTransactionCommandParser
+
+AddressBookParser -> EditTransactionCommandParser : parse("i/1 tn/1 n/Lunch")
+activate EditTransactionCommandParser
+
+create EditTransactionCommand
+EditTransactionCommandParser -> EditTransactionCommand : new(personIndex, txnIndex, descriptor)
+activate EditTransactionCommand
+
+EditTransactionCommand --> EditTransactionCommandParser
+deactivate EditTransactionCommand
+
+EditTransactionCommandParser --> AddressBookParser : d
+deactivate EditTransactionCommandParser
+
+AddressBookParser --> LogicManager : d
+deactivate AddressBookParser
+
+LogicManager -> EditTransactionCommand : execute(model)
+activate EditTransactionCommand
+
+EditTransactionCommand -> Model : getFilteredPersonList()
+activate Model
+
+Model --> EditTransactionCommand : lastShownList
+deactivate Model
+
+EditTransactionCommand -> Model : getPerson(personToEdit)
+activate Model
+
+Model --> EditTransactionCommand
+deactivate Model
+
+EditTransactionCommand -> Model : setPerson(personToEdit, editedPerson)
+activate Model
+
+Model --> EditTransactionCommand
+deactivate Model
+
+create CommandResult
+EditTransactionCommand -> CommandResult : new(resultMessage)
+activate CommandResult
+
+CommandResult --> EditTransactionCommand
+deactivate CommandResult
+
+EditTransactionCommand --> LogicManager : result
+deactivate EditTransactionCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
