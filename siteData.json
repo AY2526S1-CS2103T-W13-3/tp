@@ -137,7 +137,7 @@
         "transaction-management-commands": "Transaction Management Commands",
         "adding-a-transaction-addtxn": "Adding a transaction: addtxn",
         "deleting-a-transaction-deletetxn": "Deleting a transaction: deletetxn",
-        "editing-a-transaction-edittxn": "Editing a transaction: editTxn",
+        "editing-a-transaction-edittxn": "Editing a transaction: edittxn",
         "follow-up-management-commands": "Follow-up Management Commands",
         "adding-a-follow-up-addfu": "Adding a follow-up: addfu",
         "deleting-a-follow-up-deletefu": "Deleting a follow-up: deletefu",
