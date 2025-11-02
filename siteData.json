@@ -179,6 +179,14 @@
       "headingKeywords": {}
     },
     {
+      "src": "team/clementsimwj.md",
+      "title": "John Doe's Project Portfolio Page",
+      "headings": {
+        "project-atlas": "Project: Atlas"
+      },
+      "headingKeywords": {}
+    },
+    {
       "src": "team/johndoe.md",
       "title": "John Doe's Project Portfolio Page",
       "headings": {
