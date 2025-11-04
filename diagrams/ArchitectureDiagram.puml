@@ -4,11 +4,11 @@
 !include <office/Users/user>
 !include style.puml
 
-Package " "<<Rectangle>>{
-    Class UI_COLOR
-    Class Logic_COLOR
-    Class Storage_COLOR
-    Class Model_COLOR
+Package " " <<Rectangle>>{
+    Class UI UI_COLOR
+    Class Logic LOGIC_COLOR
+    Class Storage STORAGE_COLOR
+    Class Model MODEL_COLOR
     Class Main #grey
     Class Commons LOGIC_COLOR_T2
 }
