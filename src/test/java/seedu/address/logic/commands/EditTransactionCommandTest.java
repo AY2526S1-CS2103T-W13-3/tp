@@ -49,7 +49,7 @@ public class EditTransactionCommandTest {
                 Messages.format(editedPerson), editedTransaction);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
-                model.getAddressBook());
+                model.getArchive());
         expectedModel.setPerson(personToEdit, editedPerson);
 
         assertCommandSuccess(editTransactionCommand, model, expectedMessage, expectedModel);

@@ -147,6 +147,20 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Switches the displayed list to show archived contacts.
+     */
+    private void handleShowArchive() {
+        personListPanel.updatePersonList(logic.getFilteredArchivedPersonList());
+    }
+
+    /**
+     * Switches the displayed list to show regular (non-archived) contacts.
+     */
+    private void handleShowAddressBook() {
+        personListPanel.updatePersonList(logic.getFilteredPersonList());
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -180,6 +194,12 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isShowArchive()) {
+                handleShowArchive();
+            } else {
+                handleShowAddressBook();
             }
 
             if (commandResult.isExit()) {

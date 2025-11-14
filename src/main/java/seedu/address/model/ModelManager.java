@@ -24,6 +24,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Person> filteredArchivedPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -37,6 +38,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         this.archive = new AddressBook(archive);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredArchivedPersons = new FilteredList<>(this.archive.getPersonList());
     }
 
     public ModelManager() {
@@ -99,6 +101,7 @@ public class ModelManager implements Model {
     @Override
     public void setArchive(ReadOnlyAddressBook addressBook) {
         this.archive.resetData(addressBook);
+        updateFilteredArchivedPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
@@ -132,6 +135,7 @@ public class ModelManager implements Model {
     public void addArchivedPersons(List<Person> persons) {
         archive.addPersons(persons);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredArchivedPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
@@ -164,6 +168,21 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * the archive
+     */
+    @Override
+    public ObservableList<Person> getFilteredArchivedPersonList() {
+        return filteredArchivedPersons;
+    }
+
+    @Override
+    public void updateFilteredArchivedPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredArchivedPersons.setPredicate(predicate);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -178,7 +197,9 @@ public class ModelManager implements Model {
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons);
+                && filteredPersons.equals(otherModelManager.filteredPersons)
+                && archive.equals(otherModelManager.archive)
+                && filteredArchivedPersons.equals(otherModelManager.filteredArchivedPersons);
     }
 
 }

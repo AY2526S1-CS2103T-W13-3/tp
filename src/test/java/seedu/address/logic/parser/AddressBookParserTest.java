@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ArchiveCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -22,6 +23,7 @@ import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListArchiveCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.UnarchiveCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -96,16 +98,31 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_archive() throws Exception {
+        // archive all
         assertTrue(parser.parseCommand(ArchiveCommand.COMMAND_WORD) instanceof ArchiveCommand);
-        assertThrows(ParseException.class, () -> parser.parseCommand(ArchiveCommand.COMMAND_WORD + " 3"));
+        // archive by index
+        ArchiveCommand command = (ArchiveCommand) parser.parseCommand(ArchiveCommand.COMMAND_WORD + " 3");
+        assertEquals(new ArchiveCommand(Index.fromOneBased(3)), command);
+        // invalid index
         assertThrows(ParseException.class, () -> parser.parseCommand(ArchiveCommand.COMMAND_WORD + " help"));
     }
 
     @Test
     public void parseCommand_unarchive() throws Exception {
+        // unarchive all
         assertTrue(parser.parseCommand(UnarchiveCommand.COMMAND_WORD) instanceof UnarchiveCommand);
-        assertThrows(ParseException.class, () -> parser.parseCommand(UnarchiveCommand.COMMAND_WORD + " 3"));
+        // unarchive by index
+        UnarchiveCommand command = (UnarchiveCommand) parser.parseCommand(UnarchiveCommand.COMMAND_WORD + " 3");
+        assertEquals(new UnarchiveCommand(Index.fromOneBased(3)), command);
+        // invalid index
         assertThrows(ParseException.class, () -> parser.parseCommand(UnarchiveCommand.COMMAND_WORD + " help"));
+    }
+
+    @Test
+    public void parseCommand_listArchive() throws Exception {
+        assertTrue(parser.parseCommand(ListArchiveCommand.COMMAND_WORD) instanceof ListArchiveCommand);
+        assertThrows(ParseException.class, () -> parser.parseCommand(ListArchiveCommand.COMMAND_WORD + " 3"));
+        assertThrows(ParseException.class, () -> parser.parseCommand(ListArchiveCommand.COMMAND_WORD + " help"));
     }
 
     @Test

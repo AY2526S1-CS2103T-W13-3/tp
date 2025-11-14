@@ -22,6 +22,7 @@ import seedu.address.logic.commands.EditTransactionCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListArchiveCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SummaryCommand;
 import seedu.address.logic.commands.UnarchiveCommand;
@@ -87,6 +88,13 @@ public class AddressBookParser {
             }
             return new ListCommand();
 
+        case ListArchiveCommand.COMMAND_WORD:
+            if (!arguments.trim().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        ListArchiveCommand.MESSAGE_USAGE));
+            }
+            return new ListArchiveCommand();
+
         case SummaryCommand.COMMAND_WORD:
             return new SummaryCommandParser().parse(arguments);
 
@@ -120,18 +128,10 @@ public class AddressBookParser {
             return new DeleteFollowUpCommandParser().parse(arguments);
 
         case ArchiveCommand.COMMAND_WORD:
-            if (!arguments.trim().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        ArchiveCommand.MESSAGE_USAGE));
-            }
-            return new ArchiveCommand();
+            return new ArchiveCommandParser().parse(arguments);
 
         case UnarchiveCommand.COMMAND_WORD:
-            if (!arguments.trim().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        UnarchiveCommand.MESSAGE_USAGE));
-            }
-            return new UnarchiveCommand();
+            return new UnarchiveCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
